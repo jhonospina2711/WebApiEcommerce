@@ -1,0 +1,77 @@
+# .gitignore for C# .NET 8 projects
+# Build results
+[Dd]ebug/
+[Rr]elease/
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# NuGet packages
+*.nupkg
+# NuGet package restore
+*.nuget
+# Dotnet tool restore
+.dotnet-tools.json
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Entity Framework
+Migrations/
+
+# Logs
+*.log
+
+# OS generated files
+[Tt]humbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Docker
+**/docker-compose*.yaml
+**/Dockerfile*
+
+# Others
+*.vspscc
+*.vssscc
+*.dbmdl
+*.pdb
+*.cache
+*.config
+*.pidb
+*.svd
+*.psess
+*.vsp
+*.vsix
+*.docstates
+*.vsixmanifest
+*.vsmdi
+*.testsettings
+*.vssettings
+*.vstemplate
+*.vscode
+*.vs
+
+# Ignore test results
+TestResults/
+
+# Ignore publish folder
+publish/
+
+# Ignore coverage reports
+coverage/
+
+# Ignore secrets
+secrets.json
