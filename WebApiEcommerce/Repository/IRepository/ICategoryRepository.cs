@@ -7,7 +7,7 @@ public interface ICategoryRepository
 
     ICollection<Category> GetCategories();
 
-    Category GetCategory(int categoryId);
+    Category? GetCategory(int categoryId);
 
     bool CategoryExists(int Id);
 
