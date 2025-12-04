@@ -24,6 +24,7 @@ namespace WebApiEcommerce.Controllers
             _mapper = mapper;
         }
 
+        
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -44,8 +45,8 @@ namespace WebApiEcommerce.Controllers
             return Ok(categoriesDto);
         }
 
-
-        [HttpGet("{id:int}", Name ="GetCategory")]
+        
+        [HttpGet("{id:int}", Name = "GetCategory")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -69,15 +70,13 @@ namespace WebApiEcommerce.Controllers
             return Ok(categoryDto);
         }
 
-
+        
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
-
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)] 
         public IActionResult CreateCategory([FromBody] CreateCategoryDto createCategoryDto)
         {
             // Verifica que el objeto recibido no sea nulo
@@ -107,18 +106,18 @@ namespace WebApiEcommerce.Controllers
             return CreatedAtRoute("GetCategory", new { id = category.Id }, category);
         }
 
-        [HttpPatch("{id:int}", Name ="UpdateCategory")]
+        
+        
+        [HttpPatch("{id:int}", Name = "UpdateCategory")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
-
         public IActionResult UpdateCategory(int id, [FromBody] CreateCategoryDto updateCategoryDto)
         {
             // Verifica si la categoría con el Id dado existe
-            if(!_categoryRepository.CategoryExists(id))
+            if (!_categoryRepository.CategoryExists(id))
             {
                 return NotFound($"La categoria con el id {id} no existe.");
             }
@@ -150,28 +149,26 @@ namespace WebApiEcommerce.Controllers
             return NoContent();
         }
 
-
-
-        [HttpDelete("{id:int}", Name ="DeleteCategory")]
+        
+        
+        [HttpDelete("{id:int}", Name = "DeleteCategory")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
-
         public IActionResult DeleteCategory(int id)
         {
             // Verifica si la categoría con el Id dado existe
-            if(!_categoryRepository.CategoryExists(id))
+            if (!_categoryRepository.CategoryExists(id))
             {
                 return NotFound($"La categoria con el id {id} no existe.");
             }
-           // Obtiene la categoría a eliminar
-           var category = _categoryRepository.GetCategory(id);
+            // Obtiene la categoría a eliminar
+            var category = _categoryRepository.GetCategory(id);
 
-           //verifica si la categoría es nula
-           if(category == null )
+            //verifica si la categoría es nula
+            if (category == null)
             {
                 return NotFound($"La categoria con el id {id} no existe.");
             }
@@ -183,7 +180,7 @@ namespace WebApiEcommerce.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            
+
             return NoContent();
         }
     }
