@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApiEcommerce.Model.Dtos;
 using WebApiEcommerce.Repository.IRepository;
 
 namespace WebApiEcommerce.Controllers
@@ -20,6 +21,19 @@ namespace WebApiEcommerce.Controllers
             _productRepository = productRepository;
             // Guarda el servicio de AutoMapper recibido por inyección de dependencias
             _mapper = mapper;
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
+        public IActionResult GetProducts()
+        {
+            // Crea una lista para almacenar los DTOs de los productos
+            var products = _productRepository.GetProducts();
+            var productsDto = _mapper.Map<List<ProductDto>>(products);
+            
+            return Ok(productsDto);
         }
 
     }
