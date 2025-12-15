@@ -31,6 +31,6 @@ public class Product
     //Relación con el modelo category
     public int CategoryId {get; set; }
     [ForeignKey("CategoryId")]
-    public required Category category { get; set; }
+    public required Category Category { get; set; }
 
 }

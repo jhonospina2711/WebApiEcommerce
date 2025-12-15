@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using WebApiEcommerce.Model;
 using WebApiEcommerce.Repository.IRepository;
 
@@ -65,12 +66,12 @@ public class ProductRepository : IProductRepository
             return null;
         }
         //Se busca el producto en base de datos por su Id
-        return _db.Products.FirstOrDefault(p => p.ProductId == id );
+        return _db.Products.Include(p=> p.Category).FirstOrDefault(p => p.ProductId == id );
     }
 
     public ICollection<Product> GetProducts()
     {
-        return _db.Products.OrderBy(p => p.Name).ToList();
+        return _db.Products.Include(p => p.Category).OrderBy(p => p.Name).ToList();
     }
 
     public ICollection<Product> GetProductsForCategory(int categoryId)
@@ -79,7 +80,7 @@ public class ProductRepository : IProductRepository
         {
             return new List<Product>();
         }
-        return _db.Products.Where( p => p.CategoryId == categoryId).OrderBy(P => P.Name).ToList();
+        return _db.Products.Include(p => p.Category).Where( p => p.CategoryId == categoryId).OrderBy(P => P.Name).ToList();
     }
 
     public bool ProductExists(int Id)

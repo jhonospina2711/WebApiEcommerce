@@ -87,6 +87,7 @@ namespace WebApiEcommerce.Controllers
                 return BadRequest(ModelState);
             }
 
+            // Verifica si la categoría asociada existe
             if (!_categoryRepository.CategoryExists(createProductDto.CategoryId))
             {
                 ModelState.AddModelError("CustomError", $"La categoria con el id {createProductDto.CategoryId} no existe.");
@@ -103,8 +104,34 @@ namespace WebApiEcommerce.Controllers
                 return StatusCode(500, ModelState);
             }
 
+            var createdProduct = _productRepository.GetProduct(product.ProductId);
+            var productDto = _mapper.Map<ProductDto>(createdProduct);
             // Devuelve una respuesta 201 Created con la ruta del nuevo recurso
-            return CreatedAtRoute("GetProduct", new { productId = product.ProductId }, product);
+            return CreatedAtRoute("GetProduct", new { productId = product.ProductId },  productDto);
+        }
+
+        [HttpGet("searchByCategory/{categoryId:int}", Name = "GetProductsForCategory")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
+        public IActionResult GetProductsForCategory(int categoryId)
+        {
+            // Busca la categoría por su categoryId en la base de datos
+            var products = _productRepository.GetProductsForCategory(categoryId);
+
+            // Si no se encuentra la categoría, devuelve un error 404 Not Found
+            if (products.Count == 0)
+            {
+                return NotFound($"No existen productos asociados a la categoria id: {categoryId}.");
+            }
+
+            // Convierte la entidad Product en un DTO para enviar solo los datos necesarios
+            var productsDto = _mapper.Map<List<ProductDto>>(products);
+
+            // Devuelve la categoría encontrada en formato JSON con código 200 OK
+            return Ok(productsDto);
         }
 
     }
