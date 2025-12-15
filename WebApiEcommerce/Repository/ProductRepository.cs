@@ -106,12 +106,15 @@ public class ProductRepository : IProductRepository
         return _db.SaveChanges() >= 0;
     }
 
-    public ICollection<Product> SearchProduct(string name)
+    public ICollection<Product> SearchProducts(string searchTerm)
     {
+        var searchTermLowered = searchTerm.ToLower().Trim();
         IQueryable<Product> queary = _db.Products;
-        if(!string.IsNullOrEmpty(name))
+        if(!string.IsNullOrEmpty(searchTerm))
         {
-            queary = queary.Where( p => p.Name.ToLower().Trim() == name.ToLower().Trim());
+            queary = queary.Include(p => p.Category)
+            .Where( p => p.Name.ToLower().Trim().Contains(searchTermLowered) || 
+            p.Description.ToLower().Trim().Contains(searchTermLowered));
         }
         return queary.OrderBy(p => p.Name).ToList();
     }

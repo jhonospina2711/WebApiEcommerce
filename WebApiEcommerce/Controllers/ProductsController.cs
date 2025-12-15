@@ -110,7 +110,7 @@ namespace WebApiEcommerce.Controllers
             return CreatedAtRoute("GetProduct", new { productId = product.ProductId },  productDto);
         }
 
-        [HttpGet("searchByCategory/{categoryId:int}", Name = "GetProductsForCategory")]
+        [HttpGet("searchProductByCategory/{categoryId:int}", Name = "GetProductsForCategory")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -125,6 +125,30 @@ namespace WebApiEcommerce.Controllers
             if (products.Count == 0)
             {
                 return NotFound($"No existen productos asociados a la categoria id: {categoryId}.");
+            }
+
+            // Convierte la entidad Product en un DTO para enviar solo los datos necesarios
+            var productsDto = _mapper.Map<List<ProductDto>>(products);
+
+            // Devuelve la categoría encontrada en formato JSON con código 200 OK
+            return Ok(productsDto);
+        }
+
+        [HttpGet("searchProductByNameOrDescription/{searchTerm}", Name = "SearchProduct")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
+        public IActionResult SearchProducts(string searchTerm)
+        {
+            // Busca la categoría por su categoryId en la base de datos
+            var products = _productRepository.SearchProducts(searchTerm);
+
+            // Si no se encuentra la categoría, devuelve un error 404 Not Found
+            if (products.Count == 0)
+            {
+                return NotFound($"Los productos con el nombre o descripción '{searchTerm}' No existen.");
             }
 
             // Convierte la entidad Product en un DTO para enviar solo los datos necesarios
