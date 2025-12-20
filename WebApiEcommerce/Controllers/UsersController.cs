@@ -94,7 +94,7 @@ namespace WebApiEcommerce.Controllers
 
             if (!_userRepository.CreateUser(user))
             {
-                ModelState.AddModelError("CustomError", $"Algo salio mal guardando el registro {user.Name}");
+                ModelState.AddModelError("CustomError", $"Algo salió mal guardando el registro {user.Name}");
                 return StatusCode(500, ModelState);
             }
 
@@ -132,7 +132,7 @@ namespace WebApiEcommerce.Controllers
 
             if (!_userRepository.UpdateUser(user))
             {
-                ModelState.AddModelError("CustomError", $"Algo salio mal actualizando el registro {user.Name}");
+                ModelState.AddModelError("CustomError", $"Algo salió mal actualizando el registro {user.Name}");
                 return StatusCode(500, ModelState);
             }
 
@@ -148,11 +148,6 @@ namespace WebApiEcommerce.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult DeleteUser(int id)
         {
-            if (!_userRepository.UserExists(id))
-            {
-                return NotFound($"El usuario con el id {id} no existe.");
-            }
-
             var user = _userRepository.GetUser(id);
 
             if (user == null)
@@ -162,7 +157,7 @@ namespace WebApiEcommerce.Controllers
 
             if (!_userRepository.DeleteUser(user))
             {
-                ModelState.AddModelError("CustomError", $"Algo salio mal eliminando el registro {user.Name}");
+                ModelState.AddModelError("CustomError", $"Algo salió mal eliminando el registro {user.Name}");
                 return StatusCode(500, ModelState);
             }
 

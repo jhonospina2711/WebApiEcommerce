@@ -60,7 +60,7 @@ public class UserRepository : IUserRepository
 
     public bool Save()
     {
-        return _db.SaveChanges() >= 0;
+        return _db.SaveChanges() >= 0 ? true : false;
     }
 
     public bool UpdateUser(User user)
