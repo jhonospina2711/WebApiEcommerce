@@ -32,6 +32,10 @@ public class UserRepository : IUserRepository
     public bool CreateUser(User user)
     {
         // Crea un nuevo usuario, lo agrega a la base de datos y guarda los cambios
+        if (user == null)
+        {
+            return false;
+        }
         _db.Users.Add(user);
         return Save();
     }
@@ -39,6 +43,10 @@ public class UserRepository : IUserRepository
     public bool DeleteUser(User user)
     {
         // Elimina un usuario de la base de datos y guarda los cambios
+        if (user == null)
+        {
+            return false;
+        }
         _db.Users.Remove(user);
         return Save();
     }
@@ -58,12 +66,16 @@ public class UserRepository : IUserRepository
     public bool Save()
     {
         // Guarda los cambios realizados en la base de datos
-        return _db.SaveChanges() >= 0 ? true : false;
+        return _db.SaveChanges() >= 0;
     }
 
     public bool UpdateUser(User user)
     {
         // Actualiza los datos de un usuario existente y guarda los cambios
+        if (user == null)
+        {
+            return false;
+        }
         _db.Users.Update(user);
         return Save();
     }
