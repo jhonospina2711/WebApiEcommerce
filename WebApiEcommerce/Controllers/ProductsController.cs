@@ -234,6 +234,7 @@ namespace WebApiEcommerce.Controllers
             return NoContent();
         }
     
+        //! Eliminar un producto por su Id
         [HttpDelete("{productId:int}", Name = "DeleteProduct")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

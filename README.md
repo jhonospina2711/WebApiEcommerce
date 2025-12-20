@@ -156,8 +156,3 @@ dotnet tool install --global dotnet-ef --version 9.0.5
 - Para proyectos en equipo, prefiero la instalación como herramienta local (`tool-manifest`) para evitar diferencias entre máquinas.
 
 ---
-
-Si quieres, puedo:
-- Añadir el `README.md` al repositorio (ya lo estoy creando aquí) con personalizaciones para este proyecto.
-- Generar un ejemplo de `Program.cs` con `db.Database.Migrate()` integrado.
-- Ejecutar los comandos en tu máquina (si me das permiso para correr terminales).
