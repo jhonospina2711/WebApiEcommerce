@@ -13,5 +13,7 @@ public class CreateUserDto
   public string? Password { get; set; }
   [Required(ErrorMessage = "El campo role es requerido")]
   public string? Role { get; set; }
+  public bool IsActive { get; set;} = true;
+  public DateTime CreationDate { get; set; } = DateTime.Now;
 
 }

@@ -9,5 +9,8 @@ public class UserDto
     public string? Username { get; set;}
     public string? Password { get; set;}
     public string? Role { get; set;}
+    public bool IsActive { get; set;} = false;
+    public DateTime CreationDate { get; set; } = DateTime.Now;
+    public DateTime? UpdateDate { get; set; } = null;
 
 }

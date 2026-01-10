@@ -13,6 +13,9 @@ public class UserProfile:Profile
        CreateMap<User, CreateUserDto>().ReverseMap(); 
        CreateMap<User, UserLoginDto>().ReverseMap(); 
        CreateMap<User, UserLoginResponseDto>().ReverseMap(); 
+       CreateMap<UpdateUserDto, User>()
+        .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+        CreateMap<UpdateActiveUser, User>().ReverseMap();
     }
 
 }
