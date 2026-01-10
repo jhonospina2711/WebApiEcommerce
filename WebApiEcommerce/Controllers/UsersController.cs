@@ -156,7 +156,7 @@ namespace WebApiEcommerce.Controllers
                 ModelState.AddModelError("CustomError", $"Algo salio mal al actualizar el usuario {userDb.Username}");
                 return StatusCode(500, ModelState);
             }
-
+            
             return NoContent();
         }
 

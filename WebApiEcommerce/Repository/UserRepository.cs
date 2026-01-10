@@ -85,6 +85,15 @@ public class UserRepository : IUserRepository
                 Message = "El usuario o la contraseña son incorrectos - password incorrecto"
             };
         }
+        if (!user.IsActive)
+        {
+            return new UserLoginResponseDto()
+            {
+                Token = "",
+                User = null,
+                Message = "El usuario no está activo"
+            };
+        }
         //Generar el token JWT
         var handlerToken = new JwtSecurityTokenHandler();
         if (string.IsNullOrEmpty("SecretKey No esta configurada"))
@@ -114,7 +123,8 @@ public class UserRepository : IUserRepository
                 Username = user.Username,
                 Name = user.Name,
                 Role = user.Role,
-                Password = user.Password ?? ""
+                Password = user.Password ?? "",
+                IsActive = user.IsActive
 
             },
 
