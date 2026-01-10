@@ -1,6 +1,8 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApiEcommerce.Constans;
 using WebApiEcommerce.Model.Dtos;
 using WebApiEcommerce.Repository;
 
@@ -8,6 +10,7 @@ namespace WebApiEcommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[EnableCors(PolicyNames.AllowSpecificOrigin)]
     public class CategoriesController : ControllerBase
     {
         // Repositorio para acceder y manejar los datos de las categorías
@@ -28,7 +31,7 @@ namespace WebApiEcommerce.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-
+        //[EnableCors("AllowSpecificOrigin")]
         public IActionResult GetCategories()
         {
             // Obtiene todas las categorías desde el repositorio
